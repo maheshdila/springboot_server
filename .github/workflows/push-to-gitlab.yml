@@ -17,10 +17,14 @@ jobs:
         run: |
           git config --global user.name "maheshdilshan716"
           git config --global user.email "maheshdilshan716@gmail.com"
-
+      
       - name: Add GitLab remote
         run: git remote add gitlab https://oauth2:${{ secrets.GITLAB_AC }}@gitlab.com/maheshdilshan716/udvd_server.git
 
+      - name: gitlab pull
+        run: |
+          git pull gitlab main
+        
       - name: Push code to GitLab
         run: |
           git push gitlab main
