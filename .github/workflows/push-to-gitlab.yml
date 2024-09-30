@@ -21,12 +21,9 @@ jobs:
       - name: Add GitLab remote
         run: git remote add gitlab https://oauth2:${{ secrets.GITLAB_AC }}@gitlab.com/maheshdilshan716/udvd_server.git
 
-      - name: Configure Git Pull Strategy
-        run: git config pull.ff only  # This will fast-forward only
-
-      - name: Pull from GitLab
+      - name: Pull from GitLab with fast-forward only
         run: |
-          git pull gitlab main
+          git pull --ff-only gitlab main
 
       - name: Push code to GitLab
         run: |
