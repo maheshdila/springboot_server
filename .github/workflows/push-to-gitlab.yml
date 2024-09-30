@@ -21,9 +21,9 @@ jobs:
       - name: Add GitLab remote
         run: git remote add gitlab https://oauth2:${{ secrets.GITLAB_AC }}@gitlab.com/maheshdilshan716/udvd_server.git
 
-      - name: Pull from GitLab with fast-forward only
+      - name: Pull from GitLab with merge if necessary
         run: |
-          git pull --ff-only gitlab main
+          git pull gitlab main || git merge --no-ff
 
       - name: Push code to GitLab
         run: |
