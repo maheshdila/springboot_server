@@ -10,8 +10,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code from GitHub
+      - name: Checkout code from GitHub (Full history)
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # Ensure full history is fetched, not a shallow clone
 
       - name: Set up Git for GitLab
         run: |
@@ -21,10 +23,9 @@ jobs:
       - name: Add GitLab remote
         run: git remote add gitlab https://oauth2:${{ secrets.GITLAB_AC }}@gitlab.com/maheshdilshan716/udvd_server.git
 
-      - name: Pull from GitLab and merge if necessary
+      - name: Pull from GitLab (merge if necessary)
         run: |
           git pull gitlab main || git merge --no-ff
 
-      - name: Push code to GitLab (force if necessary)
-        run: |
-          git push gitlab main || git push --force-with-lease gitlab main
+      - name: Push code to GitLab (no force)
+        run: git push gitlab main
