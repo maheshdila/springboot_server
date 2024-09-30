@@ -1,0 +1,26 @@
+name: Push to GitLab
+
+on:
+  push:
+    branches:
+      - main  # Trigger the workflow when code is pushed to the main branch
+
+jobs:
+  push_to_gitlab:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code from GitHub
+        uses: actions/checkout@v3
+
+      - name: Set up Git for GitLab
+        run: |
+          git config --global user.name "maheshdilshan716"
+          git config --global user.email "maheshdilshan716@gmail.com"
+
+      - name: Add GitLab remote
+        run: git remote add gitlab https://oauth2:${{ secrets.GITLAB_AC }}@gitlab.com/maheshdilshan716/udvd_server.git
+
+      - name: Push code to GitLab
+        run: |
+          git push gitlab main
